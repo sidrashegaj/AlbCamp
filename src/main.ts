@@ -2,6 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, Route } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
+
 import { AppComponent } from './app/app.component';
 import { CampgroundListComponent } from './app/components/campground-list/campground-list.component';
 
