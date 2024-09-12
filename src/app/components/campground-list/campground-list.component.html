@@ -1,0 +1,37 @@
+<div class="container">
+  <br />
+  <h1 class="text-center">All Campgrounds</h1>
+  <br />
+  <div *ngFor="let campground of campgrounds" class="card mb-3">
+    <div class="row">
+      <div class="col-md-4" style="background-color: #b0d5d5">
+        <img
+          *ngIf="campground.images.length"
+          class="img-fluid"
+          alt=""
+          [src]="campground.images[0].url"
+          crossorigin="anonymous"
+        />
+        <img
+          *ngIf="!campground.images.length"
+          class="img-fluid"
+          alt=""
+          [src]="getRandomImageUrl()"
+          crossorigin="anonymous"
+        />
+      </div>
+      <div class="col-md-8" style="background-color: #b0d5d5">
+        <div class="card-body">
+          <h5 class="card-title">{{ campground.title }}</h5>
+          <p class="card-text">{{ campground.description }}</p>
+          <p class="card-text">
+            <small class="text-muted">{{ campground.location }}</small>
+          </p>
+          <a class="btn btn-custom" [routerLink]="['/campgrounds', campground._id]">
+            View {{ campground.title }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
