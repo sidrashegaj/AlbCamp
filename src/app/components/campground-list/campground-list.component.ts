@@ -18,10 +18,18 @@ export class CampgroundListComponent implements OnInit {
   constructor(private campgroundService: CampgroundService) { }
 
   ngOnInit(): void {
-    this.campgroundService.getCampgrounds().subscribe(
-      (data: Campground[]) => this.campgrounds = data,
-      (error: any) => console.log(error)
-    );
+    this.campgroundService.getCampgrounds().subscribe({
+      next: (data: Campground[]) => {
+        this.campgrounds = data;
+      },
+      error: (error: any) => {
+        console.error('Error fetching campgrounds', error);
+      },
+      complete: () => {
+        console.log('Completed fetching campgrounds');
+      }
+    });
+    
   }
 
   getRandomImageUrl(): string {
