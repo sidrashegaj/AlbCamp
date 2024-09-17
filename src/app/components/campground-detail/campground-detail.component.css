@@ -1,0 +1,31 @@
+#campgroundCarousel {
+    max-width: 600px; /* Set a max width for the carousel */
+    margin: 0 auto; /* Center the carousel */
+    border-radius: 100px; /* Optional: Round the corners of the carousel */
+    overflow: hidden; /* Hide any overflow from the images */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for visual appeal */
+  }
+  
+  .carousel-inner {
+    background-color: #b0d5d5; /* Adjust the background color */
+  }
+  
+  .carousel-item img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; /* Ensure the height of images doesn’t exceed the container */
+    object-fit: cover; /* Fit the image to the container */
+  }
+
+  #campground-container {
+    background-color: #b0d5d5; /* Move background color here */
+    border-radius: 10000px;       /* Optional: Add rounded corners */
+    padding: 15px;             /* Optional: Add padding */
+  }
+  #campgroundCarousel {
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 15px;       /* Optional: Add rounded corners */
+    background-color: #b0d5d5; /* Background color for the carousel */
+  }
+  

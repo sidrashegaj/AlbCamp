@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
 import { CommonModule } from '@angular/common'; // Import CommonModule for common directives
-import { AuthService } from '../../services/auth.service';
+// import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,21 +16,24 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor( private router: Router) {
 
-  onRegister() {
-  this.authService.register(
-    this.username, this.email, this.password
-  ).subscribe({
-    next: (res: any) => {
-      this.router.navigate(['/login']); // Navigate to login after registration
-    },
-    error: (err) => {
-      console.error('Registration failed', err);
-    },
-    complete: () => {
-      console.log('Registration request complete');
-    }
-  });
-}
-}
+//  onRegister() {
+
+//  }
+}}
+//   this.authService.register(
+//     this.username, this.email, this.password
+//   ).subscribe({
+//     next: (res: any) => {
+//       this.router.navigate(['/login']); // Navigate to login after registration
+//     },
+//     error: (err) => {
+//       console.error('Registration failed', err);
+//     },
+//     complete: () => {
+//       console.log('Registration request complete');
+//     }
+//   });
+// }
+// }

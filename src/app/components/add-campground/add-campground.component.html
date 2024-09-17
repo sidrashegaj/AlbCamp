@@ -1,0 +1,60 @@
+<div class="container mt-5">
+  <h1>Add New Campground</h1>
+  <form [formGroup]="campgroundForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <!-- Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" id="title" class="form-control" formControlName="title" required />
+      <div *ngIf="campgroundForm.get('title')?.invalid && campgroundForm.get('title')?.touched" class="text-danger">
+        Title is required.
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input type="text" id="location" class="form-control" formControlName="location" required />
+      <div *ngIf="campgroundForm.get('location')?.invalid && campgroundForm.get('location')?.touched" class="text-danger">
+        Location is required.
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+      <label for="price" class="form-label">Campground Price</label>
+      <div class="input-group">
+        <span class="input-group-text" id="price-label">$</span>
+        <input type="number" id="price" class="form-control" formControlName="price" placeholder="0.00" required />
+      </div>
+      <div *ngIf="campgroundForm.get('price')?.invalid && campgroundForm.get('price')?.touched" class="text-danger">
+        Price is required and should be greater than 0.
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" class="form-control" formControlName="description" rows="3" required></textarea>
+      <div *ngIf="campgroundForm.get('description')?.invalid && campgroundForm.get('description')?.touched" class="text-danger">
+        Description is required.
+      </div>
+    </div>
+
+    <!-- Images -->
+    <div class="mb-3">
+      <label class="form-label" for="images">Upload Images</label>
+      <input type="file" id="images" class="form-control" (change)="onFileSelected($event)" multiple>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mb-3">
+      <button class="btn btn-primary" type="submit" [disabled]="campgroundForm.invalid">Add Campground</button>
+    </div>
+  </form>
+
+  <div class="mb-3">
+    <button class="btn btn-secondary" [routerLink]="['/campgrounds']">
+      Back to All Campgrounds
+    </button>
+  </div>
+</div>

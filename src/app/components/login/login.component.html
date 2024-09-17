@@ -1,15 +1,46 @@
-<div class="container">
-    <h2>Login</h2>
-    <form (submit)="onLogin()">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" [(ngModel)]="username" required class="form-control" />
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+      <div class="card shadow">
+        <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
+             alt="Nature Image" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title text-center">Login</h5>
+          
+          <!-- Temporarily removed the form to disable the login logic -->
+           <form (ngSubmit)="onLogin()" #loginForm="ngForm"> 
+
+            <!-- Username Input -->
+            <div class="mb-3">
+              <label class="form-label" for="username">Username</label>
+              <input class="form-control" type="text" id="username" name="username" [(ngModel)]="username" required autofocus #usernameInput="ngModel">
+              <div *ngIf="usernameInput.invalid && usernameInput.touched" class="text-danger">
+                Username is required
+              </div>
+              <div *ngIf="usernameInput.valid" class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="mb-3">
+              <label class="form-label" for="password">Password</label>
+              <input class="form-control" type="password" id="password" name="password" [(ngModel)]="password" required #passwordInput="ngModel">
+              <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+                Password is required
+              </div>
+              <div *ngIf="passwordInput.valid" class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <!-- Temporarily disabled the button since it depends on the form submission -->
+             <button class="btn btn-success btn-block" type="submit" [disabled]="loginForm.invalid">Login</button> 
+
+           </form> 
+        </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" [(ngModel)]="password" required class="form-control" />
-      </div>
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+    </div>
   </div>
-  
+</div>

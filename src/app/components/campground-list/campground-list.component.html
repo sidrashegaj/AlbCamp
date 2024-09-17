@@ -2,6 +2,14 @@
   <br />
   <h1 class="text-center">All Campgrounds</h1>
   <br />
+  <!-- Show "Add New Campground" button if user is logged in -->
+  <div *ngIf="currentUser">
+    <button class="btn btn-primary mb-3" [routerLink]="['/campgrounds/new']">
+      Add New Campground
+    </button>
+  </div>
+  
+  </div>
   <div *ngFor="let campground of campgrounds" class="campground-card">
     <div class="row">
       <div class="col-md-4" style="background-color: #b0d5d5">
@@ -16,7 +24,7 @@
           *ngIf="(campground.images?.length ?? 0) === 0"
           class="img-fluid"
           alt=""
-          [src]="getRandomImageUrl()"
+          [src]="randomImageUrl"
           crossorigin="anonymous"
         />
       </div>
@@ -27,11 +35,12 @@
           <p class="card-text">
             <small class="text-muted">{{ campground.location }}</small>
           </p>
-          <a class="btn btn-custom" [routerLink]="['/campgrounds', campground._id]">
+          <a class="btn btn-custom" [routerLink]="['/campgrounds', campground.campgroundId]">
             View {{ campground.title }}
           </a>
+          
         </div>
       </div>
     </div>
   </div>
-</div>
+
