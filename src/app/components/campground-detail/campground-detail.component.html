@@ -1,0 +1,109 @@
+
+  
+    <div *ngIf="campground?.images && campground.images.length > 0" class="row">
+        <div class="col-6 mb-3" style="background-color: #b0d5d5">
+          <div id="campgroundCarousel" class="carousel slide" data-ride="carousel" style="background-color: #b0d5d5">
+            <div class="carousel-inner" style="background-color: #b0d5d5">
+              <!-- First image is active -->
+              <div class="carousel-item active">
+                <img *ngIf="campground.images[0]?.url" [src]="campground.images[0]?.url" class="d-block w-100" alt="Campground Image">
+              </div>
+      
+              <!-- Loop through the remaining images -->
+              <div *ngFor="let img of campground.images.slice(1)" class="carousel-item">
+                <img *ngIf="img?.url" [src]="img.url" class="d-block w-100" alt="Campground Image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+          <!-- Carousel Controls -->
+          <a class="carousel-control-prev" href="#campgroundCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#campgroundCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        
+      
+    <!-- Fallback for when there are no images -->
+    <div *ngIf="campground.images?.length === 0">
+      <p>No images available for this campground.</p>
+    </div>
+  
+    <!-- Campground Info Card -->
+    <div class="col-6">
+      <div class="card mb-3" style="background-color: #cbe4e4">
+        <div class="card-body">
+          <h5 class="card-title">{{ campground?.title }}</h5>
+          <p class="card-text">{{ campground?.description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-muted">{{ campground?.location }}</li>
+          <li class="list-group-item">Submitted by {{ campground?.author?.username }}</li>
+          <li class="list-group-item">${{ campground?.price }}/night</li>
+        </ul>
+  
+        <div class="card-footer text-muted">
+          2 days ago
+        </div>
+      </div>
+    </div>
+  
+    <!-- Map and Reviews Section -->
+    <div class="col-6">
+      <div id="map"></div>
+  
+      <!-- Leave a Review Section -->
+      <!-- <div *ngIf="currentUser">
+        <h2>Leave a Review</h2>
+        <form (ngSubmit)="submitReview()" class="mb-3">
+          <fieldset class="starability-grow">
+            <input type="radio" id="no-rate" class="input-no-rate" [(ngModel)]="review.rating" value="1" name="rating" />
+            <input type="radio" id="rate1" name="rating" [(ngModel)]="review.rating" value="1" />
+            <label for="rate1" title="Terrible">1 star</label>
+            <input type="radio" id="rate2" name="rating" [(ngModel)]="review.rating" value="2" />
+            <label for="rate2" title="Not good">2 stars</label>
+            <input type="radio" id="rate3" name="rating" [(ngModel)]="review.rating" value="3" />
+            <label for="rate3" title="Average">3 stars</label>
+            <input type="radio" id="rate4" name="rating" [(ngModel)]="review.rating" value="4" />
+            <label for="rate4" title="Very good">4 stars</label>
+            <input type="radio" id="rate5" name="rating" [(ngModel)]="review.rating" value="5" />
+            <label for="rate5" title="Amazing">5 stars</label>
+          </fieldset>
+  
+          <div class="mb-3">
+            <label class="form-label" for="body">Review Text</label>
+            <textarea class="form-control" [(ngModel)]="review.body" name="body" id="body" cols="30" rows="3" required></textarea>
+          </div>
+          <button class="btn btn-success">Submit</button>
+        </form>
+      </div>
+  
+      <!-- Display Reviews -->
+      <div *ngFor="let review of campground?.reviews" class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ review?.author?.username }}</h5>
+          <p class="starability-result" [attr.data-rating]="review?.rating">Rated: {{ review?.rating }} stars</p>
+          <p class="card-text">Review: {{ review?.body }}</p>
+        </div>
+      </div>
+    </div> 
+    <!-- Delete button visible only for logged-in users -->
+<!-- <div *ngIf="currentUser">
+  <button class="btn btn-danger" (click)="deleteCampground()">Delete Campground</button>
+</div> -->
+
+
+    <!-- Back to All Campgrounds button -->
+<div class="mb-3">
+  <button class="btn btn-secondary" [routerLink]="['/campgrounds']">
+    Back to All Campgrounds
+  </button>
+</div>
+
+ 
+  

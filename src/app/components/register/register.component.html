@@ -1,1 +1,55 @@
-<p>register works!</p>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+        <div class="card shadow">
+          <img
+            src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
+            alt="Nature Image" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title">Register</h5>
+            <!-- <form (ngSubmit)="onRegister()" #registerForm="ngForm"> -->
+              <!-- Username Input -->
+              <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="username" required autofocus [(ngModel)]="username" #usernameInput="ngModel">
+                <div *ngIf="usernameInput.invalid && usernameInput.touched" class="text-danger">
+                  Username is required
+                </div>
+                <div *ngIf="usernameInput.valid" class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+  
+              <!-- Email Input -->
+              <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" type="email" id="email" name="email" required [(ngModel)]="email" #emailInput="ngModel">
+                <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+                  Please enter a valid email address
+                </div>
+                <div *ngIf="emailInput.valid" class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+  
+              <!-- Password Input -->
+              <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password" required [(ngModel)]="password" #passwordInput="ngModel">
+                <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+                  Password is required
+                </div>
+                <div *ngIf="passwordInput.valid" class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+  
+              <!-- Submit Button -->
+              <button class="btn btn-success btn-block" type="submit" >Register</button> 
+            <!-- //[disabled]="registerForm.invalid" </form>  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
