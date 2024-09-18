@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Campground } from '../../models/campground.model';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CampgroundService } from '../../services/campground.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
+import { ReviewService } from '../../services/review.service';
+import { Review } from '../../models/review.model';
+import * as mapboxgl from 'mapbox-gl'; // Import mapbox-gl
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -13,7 +17,8 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './campground-detail.component.html',
   styleUrls: ['./campground-detail.component.css'],  
-})export class CampgroundDetailComponent implements OnInit {
+})
+export class CampgroundDetailComponent implements OnInit, OnDestroy {
   campground: Campground = { 
     campgroundId: 0, 
     title: '', 
@@ -22,15 +27,19 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
     images: [], // Initialize as an empty array to avoid null errors
     price: 0, 
     author: { _id: '', username: '' }, 
-    reviews: [] 
+    reviews: [] ,
   };
-
+  map!: mapboxgl.Map; // Define map variable
   id: any;
   randomImageUrl: string = '';
+  reviews: Review[] = [];
+  newReviewText: string = '';
+  newRating: number=0;
 
   constructor(
     private route: ActivatedRoute,
-    private campgroundService: CampgroundService
+    private campgroundService: CampgroundService,
+    private reviewService: ReviewService
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +49,14 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
       this.id = params.get('id');
       if (this.id) {
         this.loadCampgroundDetails(this.id); // Fetch campground details based on id
+        this.loadReviews(this.id);
       }
     });
+  }
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove(); // Clean up the map when component is destroyed
+    }
   }
 
   loadCampgroundDetails(id: number) {
@@ -61,7 +76,6 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
     });
   }
 
-  
 
   deleteCampground(id: string): void {
     this.campgroundService.deleteCampground(id).subscribe({
@@ -78,18 +92,70 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
     });
   }  
 
-  // submitReview(): void {
-  //   const reviewData = {
-  //     rating: this.review.rating,
-  //     body: this.review.body
-  //   };
-  //   // Submit the review logic (not fully implemented)
-  //   console.log('Review submitted:', reviewData);
-  //   // Optionally, call the service to submit review to the backend
-  // }
+  loadReviews(campgroundId: number): void {
+    this.reviewService.getReviewsForCampground(campgroundId).subscribe({
+      next: (reviews: Review[]) => {
+        this.reviews = reviews;
+        console.log('Loaded reviews: ', this.reviews);
+      },
+      error: err => {
+        console.error('Error fetching reviews: ', err);
+      },
+    });
+  }
+
+  submitReview(): void {
+    const newReview: Review = {
+      reviewId: 0, // This will be set by the server
+      body: this.newReviewText,
+      rating: this.newRating, // Add rating to the review object
+      campgroundId: this.campground.campgroundId,
+      author: { _id: 'one', username: 'Current User' }, // Temporary user data
+      timestamp: new Date() // Add a timestamp
+      ,
+      userId: 0
+    };
+
+    this.reviewService.postReview(newReview).subscribe({
+      next: (review: Review) => {
+        this.campground.reviews.push(review); // Add the new review to the list
+        this.newReviewText = ''; // Reset the input field
+        this.newRating = 0; // Reset the rating
+      },
+      error: err => {
+        console.error('Error submitting review: ', err);
+      },
+    });
+  }
 
   deleteReview(reviewId: string): void {
     console.log(`Delete review with ID: ${reviewId}`);
     // Implement the logic for deleting a review
+  }
+  initializeMap(): void {
+    const map = new mapboxgl.Map({
+      container: 'map', // The ID of the container element
+      style: 'mapbox://styles/mapbox/streets-v11',
+      accessToken: environment.accessToken, // Pass the accessToken here
+      center: [0, 0], // Initial map center
+      zoom: 12 // Initial zoom level
+    });
+  
+    // Add navigation controls (zoom buttons)
+    map.addControl(new mapboxgl.NavigationControl());
+  }
+  
+
+  flyToLocation(lat: number, lng: number): void {
+    // Fly to specific coordinates
+    this.map.flyTo({
+      center: [lng, lat],
+      essential: true
+    });
+
+    // Add a marker to the map
+    new mapboxgl.Marker()
+      .setLngLat([lng, lat])
+      .addTo(this.map);
   }
 }
