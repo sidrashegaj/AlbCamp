@@ -8,7 +8,7 @@
           <h5 class="card-title text-center">Login</h5>
           
           <!-- Temporarily removed the form to disable the login logic -->
-           <form (ngSubmit)="onLogin()" #loginForm="ngForm"> 
+           <!-- <form (ngSubmit)="onLogin()" #loginForm="ngForm">  -->
 
             <!-- Username Input -->
             <div class="mb-3">
@@ -36,9 +36,9 @@
 
             <!-- Submit Button -->
             <!-- Temporarily disabled the button since it depends on the form submission -->
-             <button class="btn btn-success btn-block" type="submit" [disabled]="loginForm.invalid">Login</button> 
+             <button class="btn btn-success btn-block" type="submit" >Login</button> 
 
-           </form> 
+           <!-- [disabled]="loginForm.invalid" </form>  -->
         </div>
       </div>
     </div>
