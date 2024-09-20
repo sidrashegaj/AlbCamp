@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule  } from '@angular/router';
 import { CampgroundService } from '../../services/campground.service';
 import { CommonModule } from '@angular/common';
-
+import { FlashMessageService } from '../../services/flash-message.service';
+import { AuthService } from '../../services/auth.service';
+import { Campground } from '../../models/campground.model';
 @Component({
   selector: 'app-add-campground',
   standalone: true,
@@ -11,14 +13,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './add-campground.component.html',
   styleUrls: ['./add-campground.component.css'],
 })
-export class AddCampgroundComponent {
+export class AddCampgroundComponent implements OnInit {
+  @Output() newCampgroundAdded = new EventEmitter<Campground>(); // Output event to emit new campground data
   campgroundForm: FormGroup;
   selectedFiles: File[] = [];
 
   constructor(
     private fb: FormBuilder,
     private campgroundService: CampgroundService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private flashMessageService: FlashMessageService
   ) {
     this.campgroundForm = this.fb.group({
       title: ['', Validators.required],
@@ -28,10 +33,16 @@ export class AddCampgroundComponent {
       images: ['', Validators.required],
     });
   }
+  ngOnInit(): void {
+    console.log('new campground called')
+  }
+  canAddOrDelete(): boolean {
+    return this.authService.isAuthenticated();
+  }
   onFileSelected(event: any): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files) {
-      this.selectedFiles = Array.from(fileInput.files);  // Ensure files are captured properly
+      this.selectedFiles = Array.from(fileInput.files);  
     }
   }
   
@@ -42,19 +53,21 @@ export class AddCampgroundComponent {
     formData.append('price', this.campgroundForm.value.price.toString());
     formData.append('description', this.campgroundForm.value.description);
   
-    // Ensure the images are correctly appended
     this.selectedFiles.forEach((file) => {
       formData.append('images', file, file.name);
     });
   
     this.campgroundService.addCampground(formData).subscribe({
       next: (res) => {
-        console.log('Campground added successfully', res);
-        this.router.navigate(['/campgrounds']);
+        this.flashMessageService.showMessage('Campground added successfully!', 5000);
+        this.newCampgroundAdded.emit(res); // Emit the newly added campground
+        this.router.navigate([`/campgrounds${res.campgroundId}`]);  
       },
       error: (err) => {
         console.error('Error adding campground', err);
-      },
+        this.flashMessageService.showMessage('Failed to add campground!', 5000);
+      }
     });
   }
+  
 }  

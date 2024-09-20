@@ -1,31 +1,142 @@
 #campgroundCarousel {
-    max-width: 600px; /* Set a max width for the carousel */
-    margin: 0 auto; /* Center the carousel */
-    border-radius: 100px; /* Optional: Round the corners of the carousel */
-    overflow: hidden; /* Hide any overflow from the images */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for visual appeal */
-  }
-  
-  .carousel-inner {
-    background-color: #b0d5d5; /* Adjust the background color */
-  }
-  
-  .carousel-item img {
-    width: 100%;
-    height: auto;
-    max-height: 400px; /* Ensure the height of images doesn’t exceed the container */
-    object-fit: cover; /* Fit the image to the container */
+  max-width: 600px; /* Set a max width for the carousel */
+  margin: 0 auto; /* Center the carousel */
+  border-radius: 15px; /* Add rounded corners */
+  overflow: hidden; /* Hide any overflow from the images */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for visual appeal */
+  background-color: #b0d5d5; /* Background color for the carousel */
+  margin-top: 20px;
+
+}
+
+.carousel-inner {
+  background-color: #b0d5d5; /* Adjust the background color */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  max-height: 400px; /* Ensure the height of images doesn’t exceed the container */
+  object-fit: cover; /* Fit the image to the container */
+}
+
+#campground-container {
+  background-color: #b0d5d5;
+  border-radius: 15px; /* Optional: Add rounded corners */
+  padding: 15px; /* Add padding */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for container */
+}
+
+#map {
+  width: 100%;
+  max-width: 900px;
+  height: 400px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for map */
+}
+
+.review-section {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.review-section h2 {
+  color: #343a40;
+  font-size: 1.8rem; /* Increase font size for headers */
+}
+
+.review-section textarea {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ced4da; /* Subtle border */
+  font-size: 1rem; /* Adjust text size */
+}
+
+.review-section button {
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.review-section button:hover {
+  background-color: #218838; /* Darken on hover */
+}
+
+.card {
+  background-color: #f5f7fa;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.card-footer {
+  background-color: #e9ecef;
+  border-top: 1px solid #dee2e6;
+}
+
+fieldset.starability-grow {
+  display: inline-block;
+  border: none;
+  margin: 10px 0;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+fieldset.starability-grow label {
+  font-size: 2rem;
+  padding: 0 5px;
+  color: lightgray;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+fieldset.starability-grow input[type="radio"]:checked ~ label {
+  color: #f39c12;
+}
+
+fieldset.starability-grow input[type="radio"]:hover ~ label {
+  color: #f39c12;
+}
+
+/* Container styling for layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+}
+
+.col-6 {
+  flex: 0 0 48%; /* Two columns, each taking 48% of the width */
+  margin-bottom: 20px; /* Add spacing between columns */
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  .col-6 {
+    flex: 0 0 100%; /* On smaller screens, make columns take full width */
   }
 
-  #campground-container {
-    background-color: #b0d5d5; /* Move background color here */
-    border-radius: 10000px;       /* Optional: Add rounded corners */
-    padding: 15px;             /* Optional: Add padding */
+  #map {
+    height: 300px; /* Adjust map height for smaller screens */
   }
-  #campgroundCarousel {
-    max-width: 100%;
-    margin: 0 auto;
-    border-radius: 15px;       /* Optional: Add rounded corners */
-    background-color: #b0d5d5; /* Background color for the carousel */
-  }
-  
+}
+
+.card-footer {
+  text-align: right;
+}

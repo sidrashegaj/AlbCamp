@@ -10,9 +10,13 @@ export interface Campground {
     username: string;
   };
   reviews: Review[];  // Add reviews if they exist
+  geometry: {
+    coordinates: number[]; // Array with [longitude, latitude]
+  };
 }
 
 export interface Review {
+  reviewId: number;
   campgroundId : number;
   rating: number;
   body: string;

@@ -48,7 +48,7 @@
 
     <!-- Submit Button -->
     <div class="mb-3">
-      <button class="btn btn-primary" type="submit" [disabled]="campgroundForm.invalid">Add Campground</button>
+      <button *ngIf="canAddOrDelete()"class="btn btn-primary" type="submit"  >Add Campground</button>
     </div>
   </form>
 

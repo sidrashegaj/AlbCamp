@@ -7,7 +7,7 @@
             alt="Nature Image" class="card-img-top" />
           <div class="card-body">
             <h5 class="card-title">Register</h5>
-            <!-- <form (ngSubmit)="onRegister()" #registerForm="ngForm"> -->
+             <form (ngSubmit)="onSubmit()" #registerForm="ngForm"> 
               <!-- Username Input -->
               <div class="mb-3">
                 <label class="form-label" for="username">Username</label>
@@ -47,6 +47,7 @@
               <!-- Submit Button -->
               <button class="btn btn-success btn-block" type="submit" >Register</button> 
             <!-- //[disabled]="registerForm.invalid" </form>  -->
+          </form>
           </div>
         </div>
       </div>

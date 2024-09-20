@@ -9,6 +9,7 @@ import { Campground } from '../models/campground.model';
 export class CampgroundService {
 
   private apiUrl = 'http://localhost:5247/api/campgrounds'; 
+  campgrounds: Campground[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +26,8 @@ export class CampgroundService {
   addCampground(campgroundData: FormData): Observable<Campground> {
     return this.http.post<Campground>(`${this.apiUrl}`, campgroundData);
   }
+  
+  
 }
   
 

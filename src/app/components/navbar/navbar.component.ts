@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-// import { AuthService } from '../../services/auth.service';  // Make sure the path is correct
 import { Router, RouterModule } from '@angular/router';  // Import RouterModule for routing
 import { CommonModule } from '@angular/common';  // Import CommonModule for basic Angular directives like *ngIf
-
+import { FlashMessageService } from '../../services/flash-message.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,  // This makes it a standalone component
@@ -13,17 +13,18 @@ import { CommonModule } from '@angular/common';  // Import CommonModule for basi
 export class NavbarComponent  {
   isLoggedIn: boolean = false;
 
-  constructor( private router: Router) {}
-  // ngOnInit(): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  constructor( private flashMessageSercie: FlashMessageService, private router: Router, private authService: AuthService,) {
 
-  // ngOnInit(): void {
-  //   this.isLoggedIn = this.authService.isLoggedIn();  // Check if the user is logged in
-  // }
+  }
+
+  onNewCampgroundClick(){
+      this.router.navigate(['/campgrounds/new']);
+    
+  }
+ 
 
   onLogout(): void {
-    // this.authService.logout();  // Remove token and log out the user
-    this.router.navigate(['/login']);  // Redirect to login page
+    this.router.navigate(['/campgrounds']);  // Redirect to login page
   }
+  
 }

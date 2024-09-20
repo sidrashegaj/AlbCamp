@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Campground } from '../../models/campground.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; // Import Router
 import { CommonModule } from '@angular/common';
 import { CampgroundService } from '../../services/campground.service';
 import { RouterModule } from '@angular/router';
@@ -9,7 +9,8 @@ import { ReviewService } from '../../services/review.service';
 import { Review } from '../../models/review.model';
 import * as mapboxgl from 'mapbox-gl'; // Import mapbox-gl
 import { environment } from '../../../environments/environment';
-
+import { FlashMessageService } from '../../services/flash-message.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-campground-detail',
@@ -28,18 +29,22 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
     price: 0, 
     author: { _id: '', username: '' }, 
     reviews: [] ,
+    geometry: { coordinates: [0, 0] }
   };
   map!: mapboxgl.Map; // Define map variable
   id: any;
   randomImageUrl: string = '';
   reviews: Review[] = [];
   newReviewText: string = '';
-  newRating: number=0;
+  newRating: number = 0;
 
   constructor(
     private route: ActivatedRoute,
     private campgroundService: CampgroundService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    public authService: AuthService,
+    private flashMessageService: FlashMessageService,
+    private router: Router // Add Router here
   ) {}
 
   ngOnInit(): void {
@@ -49,49 +54,78 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
       this.id = params.get('id');
       if (this.id) {
         this.loadCampgroundDetails(this.id); // Fetch campground details based on id
+        this.initializeMap(); // Initialize the map when the campground is loaded
         this.loadReviews(this.id);
       }
     });
   }
-  ngOnDestroy(): void {
-    if (this.map) {
-      this.map.remove(); // Clean up the map when component is destroyed
-    }
+
+  // Method to redirect to login if the user is not logged in
+  navigateToLogin(): void {
+    this.flashMessageService.showMessage('Please log in to leave a review.', 5000);
+    this.router.navigate(['/login']); // Navigate to the login page
   }
 
+  canAddOrDelete(): boolean {
+    return this.authService.isAuthenticated();  // Check if the user is authenticated
+  }
+
+  submitReview(): void {
+    if (!this.authService.isAuthenticated()) {
+      // If the user is not logged in, redirect them to login
+      this.navigateToLogin();
+      return;
+    }
+
+    const newReview: Review = {
+      reviewId: 0, // This will be set by the server
+      body: this.newReviewText,
+      rating: this.newRating, // Add rating to the review object
+      campgroundId: this.campground.campgroundId,
+      author: { _id: 'one', username: 'Current User' }, // Temporary user data
+      timestamp: new Date(), // Add a timestamp
+      userId: 0
+    };
+
+    this.reviewService.postReview(newReview).subscribe({
+      next: (review: Review) => {
+        this.campground.reviews.push(review); // Add the new review to the list
+        this.newReviewText = ''; // Reset the input field
+        this.newRating = 0; // Reset the rating
+        this.flashMessageService.showMessage('Review submitted successfully!', 5000); // 5 seconds
+      },
+      error: err => {
+        this.flashMessageService.showMessage('Review could not be submitted!', 5000); // 5 seconds
+      },
+    });
+  }
+
+  // Load campground details
   loadCampgroundDetails(id: number) {
     this.campgroundService.getCampground(id).subscribe({
       next: (data: Campground) => {
         this.campground = data;
-        console.log("Campground data: ", this.campground);
+        this.initializeMap(); 
+  
+        if (this.campground.images && this.campground.images.length > 0) {
+          console.log('Cloudinary images found:', this.campground.images);
+          this.randomImageUrl = this.campground.images[0].url
 
-        // If no images exist, use the random image URL as a fallback
-        if (!this.campground.images || this.campground.images.length === 0) {
-          this.campground.images = [{ url: this.randomImageUrl }];
+        } else {
+          console.log('No images found, using random image as fallback');
         }
+  
+        console.log('Final images to display:', this.campground.images);
       },
       error: (err) => {
-        console.error("Error fetching campground details", err);
+        console.error('Error fetching campground details', err);
       }
     });
   }
+  
 
 
-  deleteCampground(id: string): void {
-    this.campgroundService.deleteCampground(id).subscribe({
-      next: () => {
-        console.log('Campground deleted successfully');
-        // Add any logic for after the deletion (e.g., redirect or update the UI)
-      },
-      error: (error) => {
-        console.error('Error deleting campground:', error);
-      },
-      complete: () => {
-        console.log('Deletion process completed');
-      }
-    });
-  }  
-
+  // Load reviews for the current campground
   loadReviews(campgroundId: number): void {
     this.reviewService.getReviewsForCampground(campgroundId).subscribe({
       next: (reviews: Review[]) => {
@@ -104,58 +138,57 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  submitReview(): void {
-    const newReview: Review = {
-      reviewId: 0, // This will be set by the server
-      body: this.newReviewText,
-      rating: this.newRating, // Add rating to the review object
-      campgroundId: this.campground.campgroundId,
-      author: { _id: 'one', username: 'Current User' }, // Temporary user data
-      timestamp: new Date() // Add a timestamp
-      ,
-      userId: 0
-    };
+  // Delete the campground
+  deleteCampground(campgroundId: number): void {
+    this.campgroundService.deleteCampground(campgroundId.toString()).subscribe({
+      next: () => {
+        this.flashMessageService.showMessage('Campground deleted successfully!', 5000); // 5 seconds
+        this.router.navigate(['/campgrounds']);
+      },
+      error: (error) => {
+        this.flashMessageService.showMessage('Campground could not be deleted!', 5000); // 5 seconds
+      }
+    });
+  }
 
-    this.reviewService.postReview(newReview).subscribe({
-      next: (review: Review) => {
-        this.campground.reviews.push(review); // Add the new review to the list
-        this.newReviewText = ''; // Reset the input field
-        this.newRating = 0; // Reset the rating
+  // **Delete a Review** - Only allow if the user is authenticated
+  deleteReview(reviewId: number): void {
+    if (!this.authService.isAuthenticated()) {
+      this.navigateToLogin();
+      return;
+    }
+    
+    this.reviewService.deleteReview(reviewId).subscribe({
+      next: () => {
+        this.flashMessageService.showMessage('Review deleted successfully!', 5000); // 5 seconds
+        this.campground.reviews = this.campground.reviews.filter(review => review.reviewId !== reviewId);
       },
       error: err => {
-        console.error('Error submitting review: ', err);
-      },
+        console.error('Error deleting review:', err);
+        this.flashMessageService.showMessage('Review could not be deleted!', 5000); // 5 seconds
+      }
     });
   }
 
-  deleteReview(reviewId: string): void {
-    console.log(`Delete review with ID: ${reviewId}`);
-    // Implement the logic for deleting a review
-  }
+  // Initialize the map with the campground's coordinates
   initializeMap(): void {
-    const map = new mapboxgl.Map({
-      container: 'map', // The ID of the container element
-      style: 'mapbox://styles/mapbox/streets-v11',
-      accessToken: environment.accessToken, // Pass the accessToken here
-      center: [0, 0], // Initial map center
-      zoom: 12 // Initial zoom level
-    });
-  
-    // Add navigation controls (zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl());
-  }
-  
-
-  flyToLocation(lat: number, lng: number): void {
-    // Fly to specific coordinates
-    this.map.flyTo({
-      center: [lng, lat],
-      essential: true
+    this.map = new mapboxgl.Map({
+      container: 'map', // HTML element ID
+      style: 'mapbox://styles/mapbox/streets-v12', // Mapbox style URL
+      center: [this.campground.geometry.coordinates[0], this.campground.geometry.coordinates[1]], // Campground coordinates
+      zoom: 12, // Initial zoom level
+      accessToken: environment.mapbox.accessToken // Set the access token here
     });
 
-    // Add a marker to the map
+    // Add a marker for the campground
     new mapboxgl.Marker()
-      .setLngLat([lng, lat])
+      .setLngLat([this.campground.geometry.coordinates[0], this.campground.geometry.coordinates[1]])
       .addTo(this.map);
+  }
+
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove(); // Clean up the map when the component is destroyed
+    }
   }
 }
