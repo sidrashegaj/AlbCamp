@@ -1,14 +1,17 @@
 <div class="container">
   <br />
-  <div id="cluster-map" ></div>
+<!-- Add this div to the HTML file -->
+<div id="map" ></div>
+
   <h1 class="text-center">All Campgrounds</h1>
   <br />
-  <!-- Show "Add New Campground" button if user is logged in -->
-  <div *ngIf="currentUser">
+  <!-- Show "Add New Campground" button if user is logged in
+  
+  <div class="mb-3 text-center" *ngIf="currentUser">
     <button class="btn btn-primary mb-3" [routerLink]="['/campgrounds/new']">
       Add New Campground
     </button>
-  </div>
+  </div> -->
   
   </div>
   <div *ngFor="let campground of campgrounds" class="campground-card">
@@ -25,7 +28,7 @@
           *ngIf="(campground.images?.length ?? 0) === 0"
           class="img-fluid"
           alt=""
-          [src]="randomImageUrl"
+          [src]="getRandomImageUrl()"
           crossorigin="anonymous"
         />
       </div>

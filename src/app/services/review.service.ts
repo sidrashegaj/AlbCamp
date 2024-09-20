@@ -19,7 +19,7 @@ export class ReviewService {
 
   // Post a new review for a campground
   postReview(review: Review): Observable<Review> {
-    return this.http.post<Review>(this.apiUrl, review);
+    return this.http.post<Review>(`${this.apiUrl}/campground/${review.campgroundId}`, review);
   }
 
   // Delete a review

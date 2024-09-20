@@ -11,13 +11,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "fileReplacements": [
-  {
-    "replace": "src/environments/environment.ts",
-    "with": "src/environments/environment.prod.ts"
-  }
-],
-
+          
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/yelp-camp-frontend",

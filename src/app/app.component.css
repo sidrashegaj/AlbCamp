@@ -1,0 +1,52 @@
+nav {
+    background-color: #1a6969;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+}
+  
+nav a {
+    color: #343a40;
+    margin-right: 20px;
+    text-decoration: none;
+}
+  
+nav a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+  
+.footer {
+    position: fixed; /* Fixed to the bottom */
+    bottom: 0;
+    width: 100%;
+    background-color: #b0d5d5;
+    padding: 20px 0;
+    text-align: center; /* Center the text */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */
+    transform: translateY(0); /* Visible by default */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+  
+.footer .container {
+    display: flex;
+    justify-content: center; /* Center the text inside the container */
+}
+  
+.footer span {
+    color: #666; /* Muted text color */
+    font-size: 1rem;
+}
+
+html, body {
+    min-height: 100%;
+    margin: 0;
+    padding-bottom: 60px; /* Space for the footer */
+}
+
+.wrapper {
+    min-height: calc(100vh - 60px); /* Subtract the footer height */
+    padding-bottom: 60px; /* Optional: Padding at the bottom */
+}
+
+
