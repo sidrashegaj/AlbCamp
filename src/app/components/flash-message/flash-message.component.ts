@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Import CommonModule for *ngIf
 import { FlashMessageService } from '../../services/flash-message.service';
-import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flash-message',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule],  // Ensure CommonModule is imported for template directives like *ngIf
   templateUrl: './flash-message.component.html',
-  styleUrl: './flash-message.component.css'
+  styleUrls: ['./flash-message.component.css'],
 })
 export class FlashMessageComponent {
-  showMessage(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
   message: string | null = null;
-  constructor(private flashMessageService: FlashMessageService) {}
+
+  constructor(private flashMessageService: FlashMessageService, private router: Router,) {}
 
   ngOnInit(): void {
-    this.flashMessageService.currentMessage.subscribe(
-      (message) => (this.message = message)
-    );
-
-}
+    this.flashMessageService.currentMessage.subscribe((message) => {
+      this.message = message;
+    });
+  }
+  onLoginClick(): void {
+    this.router.navigate(['/login']);  // Navigate to the login page
+  }
 }

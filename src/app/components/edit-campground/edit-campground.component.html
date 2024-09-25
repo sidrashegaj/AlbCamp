@@ -1,0 +1,72 @@
+<div class="row">
+    <h1 class="text-center mb-4">Edit Campground</h1>
+    <div class="col-md-6 offset-md-3">
+
+        <!-- Form for editing the campground -->
+        <form (ngSubmit)="onSubmit()" novalidate>
+            
+            <!-- Title Field -->
+            <div class="mb-4">
+                <label class="form-label" for="title">Title</label>
+                <input [(ngModel)]="campground.title" name="title" class="form-control form-control-lg" type="text" id="title" required>
+            </div>
+
+            <!-- Location Field -->
+            <div class="mb-4">
+                <label class="form-label" for="location">Location</label>
+                <input [(ngModel)]="campground.location" name="location" class="form-control form-control-lg" type="text" id="location" required>
+            </div>
+
+            <!-- Price Field -->
+            <div class="mb-4">
+                <label class="form-label" for="price">Campground Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input [(ngModel)]="campground.price" name="price" type="number" class="form-control" id="price" placeholder="0.00" aria-label="price" required>
+                </div>
+            </div>
+
+            <!-- Description Field -->
+            <div class="mb-4">
+                <label class="form-label" for="description">Description</label>
+                <textarea [(ngModel)]="campground.description" name="description" class="form-control form-control-lg" id="description" rows="4" required></textarea>
+            </div>
+
+            <!-- Image Upload Field -->
+            <div class="mb-4">
+                <label class="form-label" for="image">Add More Images</label>
+                <div class="form-file custom-file">
+                    <input type="file" class="form-file-input" id="image" (change)="onImageSelected($event)" multiple>
+                    <label class="form-file-label" for="image">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Existing Images with Delete Option -->
+            <div class="mb-4">
+                <label class="form-label">Existing Images</label>
+                <div class="row">
+                    <div class="col-4" *ngFor="let img of campground.images; let i = index">
+                        <div class="image-container">
+                            <img [src]="img.url" class="img-thumbnail mb-2" alt="Campground Image" style="width: 100%; height: 150px; object-fit: cover;">
+                            <div class="form-check">
+                                <input type="checkbox" [id]="'image-' + i" name="deleteImages[]" [value]="img.filename">
+                                <label [for]="'image-' + i" class="form-check-label">Delete?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mb-3 text-center">
+                <button class="btn btn-primary btn-lg" type="submit">Update Campground</button>
+            </div>
+        </form>
+
+        <!-- Back Button -->
+        <div class="text-center mt-3">
+            <a [routerLink]="['/campgrounds', campground.campgroundId]" class="btn btn-secondary">Back To Campground</a>
+        </div>
+    </div>
+</div>
