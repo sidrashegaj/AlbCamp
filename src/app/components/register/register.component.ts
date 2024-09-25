@@ -20,7 +20,7 @@ export class RegisterComponent {
 
   onSubmit() {
     this.authService.register(this.username, this.email, this.password).subscribe({
-      next: (res) => {
+      next: (user) => {
         this.flashMessageService.showMessage('Welcome :)', 5000);
         this.router.navigate(['/campgrounds']);  // Redirect to campgrounds
 

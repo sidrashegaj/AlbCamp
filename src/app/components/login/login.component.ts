@@ -22,7 +22,7 @@ export class LoginComponent {
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
-        this.router.navigate(['/campgrounds/new']);  // Redirect to campgrounds after login
+        this.router.navigate(['/campgrounds']);  // Redirect to campgrounds after login
       },
       error: (err) => {
         console.error('Login error', err);

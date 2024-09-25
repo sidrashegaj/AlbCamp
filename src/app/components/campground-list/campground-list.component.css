@@ -4,6 +4,7 @@
   padding: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  
 }
 
 h2 {
@@ -15,7 +16,7 @@ h2 {
 
 .campground-card {
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 13px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
   padding: 15px;
@@ -29,6 +30,7 @@ h2 {
 .campground-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
 
 .campground-card img {
   width: 100%;
@@ -85,6 +87,8 @@ h2 {
     padding: 10px;
     width: 100%; /* Make sure the card uses full width */
     margin-left: 0; /* Remove manual left margin */
+      border-radius: 13px;
+
   }
 
   .campground-card h5 {

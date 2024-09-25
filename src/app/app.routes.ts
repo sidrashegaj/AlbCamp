@@ -6,20 +6,24 @@ import { RegisterComponent } from './components/register/register.component';
 import { CampgroundDetailComponent } from './components/campground-detail/campground-detail.component';
 import { AddCampgroundComponent } from './components/add-campground/add-campground.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { EditCampgroundComponent } from './components/edit-campground/edit-campground.component';
+import { IndexComponent } from './index/index.component';
 
 export const routes: Routes = [
+  { path: '', component: IndexComponent }, 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'campgrounds', component: CampgroundListComponent },
-  { path: 'campgrounds/new', component: AddCampgroundComponent}, //, canActivate: [AuthGuard]
+  { path: 'campgrounds/new', component: AddCampgroundComponent,canActivate: [AuthGuardService]}, //, canActivate: [AuthGuard]
   { path: 'campgrounds/:id', component: CampgroundDetailComponent },
-  { path: '', redirectTo: '/campgrounds', pathMatch: 'full' },
+  { path: 'campgrounds/:id/edit', component: EditCampgroundComponent },
   { path: '**', redirectTo: '/campgrounds' },
+ 
+  
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes,      { enableTracing: true } // <-- debugging purposes only
-    )],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,12 +1,28 @@
 .flash-message {
   position: sticky;
-    background-color: #86c9db; 
-    color: white;
-    padding: 15px;
-    margin-bottom: 5px;
-    margin: 10px auto;
-    text-align: center;
-    border-radius: 5px;
-    width: 50%;
-  }
-  
+  top: 10px;
+  background-color: #86c9db;
+  color: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 10px;
+  width: 60%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+  font-size: 1.1rem; /* Slightly larger text */
+  margin-top: 15px;
+  z-index: 1000; 
+}
+
+
+.flash-message button {
+  font-size: 0.9rem;
+  padding: 8px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
+}
+
+.flash-message button:hover {
+  opacity: 0.9; /* Slight hover effect */
+}

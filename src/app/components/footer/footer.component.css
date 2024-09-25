@@ -2,7 +2,7 @@
     position:fixed; /* Fixed to the bottom */
     bottom: 0;
     width: 100%;
-    background-color: #b0d5d5;
+    background-color: #accaca;
     padding: 10px 0;
     text-align: center; /* Center the text */
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */

@@ -1,3 +1,9 @@
+export interface User {
+  userId: number;
+  username: string;
+  email?: string;
+}
+
 export interface LoginComponent {
     username: string;
     password: string;
