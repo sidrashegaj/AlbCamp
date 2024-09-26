@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Import FormsModule here for form handling
+import { FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessageService } from '../../services/flash-message.service';
@@ -9,7 +9,7 @@ import { FlashMessageService } from '../../services/flash-message.service';
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
-  imports: [FormsModule, CommonModule] // Add FormsModule here for form handling
+  imports: [FormsModule, CommonModule]
 })
 export class LoginComponent {
   username = '';
@@ -22,7 +22,7 @@ export class LoginComponent {
   onSubmit() {
     this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
-        this.router.navigate(['/campgrounds']);  // Redirect to campgrounds after login
+        this.router.navigate(['/campgrounds']); 
       },
       error: (err) => {
         console.error('Login error', err);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
-import { CommonModule } from '@angular/common'; // <-- Import CommonModule
+import { FormsModule } from '@angular/forms'; 
+import { CommonModule } from '@angular/common';
 import { CampgroundService } from '../../services/campground.service';
 import { FlashMessageService } from '../../services/flash-message.service';
 import { Campground } from '../../models/campground.model';
@@ -11,7 +11,7 @@ import { Campground } from '../../models/campground.model';
   standalone: true,
   templateUrl: './edit-campground.component.html',
   styleUrls: ['./edit-campground.component.css'],
-  imports: [CommonModule, FormsModule, RouterModule], // <-- Add FormsModule, RouterModule, and CommonModule to the imports
+  imports: [CommonModule, FormsModule, RouterModule], 
 })
 export class EditCampgroundComponent implements OnInit {
   campgroundId!: number;
@@ -49,8 +49,7 @@ export class EditCampgroundComponent implements OnInit {
   loadCampgroundDetails(): void {
     this.campgroundService.getCampground(this.campgroundId).subscribe((campground) => {
       this.campground = campground;
-      // Ensure you save only the filenames (PublicId) for deletion
-      this.deleteImages = this.campground.images.map((img) => img.filename); // Save filenames for deletion
+      this.deleteImages = this.campground.images.map((img) => img.filename);
     });
   }
 
@@ -61,38 +60,33 @@ export class EditCampgroundComponent implements OnInit {
   onSubmit(): void {
     const formData = new FormData();
   
-    // Ensure you use the correct field name that matches your backend
-    formData.append('name', this.campground.title); // Use 'name' if backend expects 'Name'
+    formData.append('name', this.campground.title); 
     formData.append('location', this.campground.location);
     formData.append('price', this.campground.price.toString());
     formData.append('description', this.campground.description);
   
-    // Add selected new images to form data
     for (let file of this.selectedImages) {
       formData.append('images', file); // Add new images
     }
   
-    // Ensure existing images are included in form data unless deleted
     this.campground.images.forEach((img) => {
       if (!this.deleteImages.includes(img.filename)) {
-        formData.append('existingImages[]', img.filename); // Add existing images that are not deleted
+        formData.append('existingImages[]', img.filename); 
       }
     });
   
-    // Handle deleteImages field for images marked for deletion
     if (this.deleteImages.length > 0) {
       for (let filename of this.deleteImages) {
-        formData.append('deleteImages[]', filename); // Send filenames (PublicId) for deletion
+        formData.append('deleteImages[]', filename); //send file data to delete
       }
     } else {
-      formData.append('deleteImages[]', ''); // Send empty if no images for deletion
+      formData.append('deleteImages[]', ''); 
     }
   
-    // Call the service to update the campground
     this.campgroundService.updateCampground(this.campgroundId, formData).subscribe({
       next: () => {
         this.flashMessageService.showMessage('Campground updated successfully!', 5000);
-        this.router.navigate(['/campgrounds']); // Redirect after update
+        this.router.navigate(['/campgrounds']); 
       },
       error: (err) => {
         console.error('Error updating campground', err);

@@ -6,14 +6,14 @@ export interface Campground {
   title: string;
   description: string;
   location: string;
-  images: { url: string, filename: string }[];  // Ensure both 'url' and 'filename'
-  price: number;  // Add price if missing
-  author: {       // Ensure author is defined
+  images: { url: string, filename: string }[]; 
+  price: number;  
+  author: {       
     _id: number;
     username: string;
   };
-  reviews?: Review[];  // Add reviews if they exist
+  reviews?: Review[];  
   geometry: {
-    coordinates: number[]; // Array with [longitude, latitude]
+    coordinates: number[]; 
   };
 }

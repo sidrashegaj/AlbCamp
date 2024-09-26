@@ -3,19 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import {jwtDecode}  from 'jwt-decode'; // Make sure this import is correctly handled
+import {jwtDecode}  from 'jwt-decode'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:7136/api/auth'; // Base URL, use `/login` and `/register` as needed
+  private apiUrl = 'https://localhost:7136/api/auth';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
   constructor(
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: any // This helps determine if code runs in browser or SSR
+    @Inject(PLATFORM_ID) private platformId: any //  determines if code runs in browser or SSR
   ) {
     const storedUser = isPlatformBrowser(platformId)
       ? localStorage.getItem('currentUser')
@@ -31,24 +31,24 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  /**
-   * Login user and store their token and details in localStorage.
-   */
+  
+   //Login user and store their token and details in localStorage.
+   
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
       map((response) => {
         if (response && response.token) {
-          const decodedToken: any = jwtDecode(response.token);  // Deconpde the JWT
+          const decodedToken: any = jwtDecode(response.token); 
           console.log('Decoded token:', decodedToken);
 
-          // Extract user details from the decoded token (ensure your JWT contains UserId and sub fields)
+          //  decoded token 
           const user = {
-            userId: decodedToken.UserId || decodedToken.userId || decodedToken.id,   // Ensure you're extracting the correct user ID field
-            username: decodedToken.sub,    // 'sub' usually contains the username or user identifier
+            userId: decodedToken.UserId || decodedToken.userId || decodedToken.id,   
+            username: decodedToken.sub,    
             token: response.token
           };
 
-          // Store the entire user object in localStorage
+          // store  in localStorage
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
 

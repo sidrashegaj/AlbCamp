@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Inject, PLATFORM_ID } from '@a
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule  } from '@angular/router';
 import { CampgroundService } from '../../services/campground.service';
-import { CommonModule, isPlatformBrowser } from '@angular/common'; // Add isPlatformBrowser and PLATFORM_ID
+import { CommonModule, isPlatformBrowser } from '@angular/common'; 
 import { FlashMessageService } from '../../services/flash-message.service';
 import { AuthService } from '../../services/auth.service';
 import { Campground } from '../../models/campground.model';
@@ -10,12 +10,12 @@ import { Campground } from '../../models/campground.model';
 @Component({
   selector: 'app-add-campground',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule], // Import ReactiveFormsModule here
+  imports: [CommonModule, ReactiveFormsModule, RouterModule], 
   templateUrl: './add-campground.component.html',
   styleUrls: ['./add-campground.component.css'],
 })
 export class AddCampgroundComponent implements OnInit {
-  @Output() newCampgroundAdded = new EventEmitter<Campground>(); // Output event to emit new campground data
+  @Output() newCampgroundAdded = new EventEmitter<Campground>();
   campgroundForm: FormGroup;
   selectedFiles: File[] = [];
 
@@ -47,7 +47,6 @@ export class AddCampgroundComponent implements OnInit {
   }
 
   onFileSelected(event: any): void {
-    // Check if this code is running in the browser
     if (isPlatformBrowser(this.platformId)) {
       const fileInput = event.target as HTMLInputElement;
       if (fileInput.files) {
@@ -57,7 +56,7 @@ export class AddCampgroundComponent implements OnInit {
   }
   
   onSubmit(): void {
-    // Ensure this code only runs in the browser, as FormData is browser-specific
+    //  FormData is browser-specific
     if (isPlatformBrowser(this.platformId)) {
       const formData = new FormData();
       formData.append('title', this.campgroundForm.value.title);
@@ -72,7 +71,7 @@ export class AddCampgroundComponent implements OnInit {
       this.campgroundService.addCampground(formData).subscribe({
         next: (res) => {
           this.flashMessageService.showMessage('Campground added successfully!', 5000);
-          this.newCampgroundAdded.emit(res); // Emit the newly added campground
+          this.newCampgroundAdded.emit(res); 
           this.router.navigate([`/campgrounds${res.campgroundId}`]);  
         },
         error: (err) => {

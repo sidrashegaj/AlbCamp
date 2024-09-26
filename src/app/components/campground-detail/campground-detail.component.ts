@@ -62,7 +62,7 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentUserId = this.authService.getUserId();
-    console.log('Logged-in User ID:', this.currentUserId); // Debugging: log the current user ID
+    console.log('Logged-in User ID:', this.currentUserId); // debugg
 
     this.randomImageUrl = `https://picsum.photos/400?random=${Math.random()}`;
 
@@ -80,7 +80,6 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
       this.isLoggedIn = this.authService.isLoggedIn();
     });
 
-    //this.campgroundId = +this.route.snapshot.paramMap.get('id')!;
     this.isLoggedIn = this.authService.isLoggedIn();
     this.currentUserId = this.authService.getUserId();
   }
@@ -103,24 +102,23 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
     const currentUser = this.authService.currentUserValue;
     if (!currentUser || !currentUser.userId || !currentUser.username) {
       console.error('User details are missing.');
-      return;  // Do not proceed if user details are missing
+      return;  
     }
 
-    // Prepare the new review with proper user data
     const reviewToSubmit: Review = {
       reviewId: 0,
       text: this.newReview.text,
       timestamp: new Date(),
-      userId: currentUser.userId,  // Set the logged-in user's ID
+      userId: currentUser.userId,  
       user: {
         userId: currentUser.userId,
         username: currentUser.username
       },
-      campgroundId: this.campground.campgroundId,  // Associate the review with the current campground
-      rating: this.newRating  // Assign the rating selected by the user
+      campgroundId: this.campground.campgroundId,  // associates the review with the current campground
+      rating: this.newRating  
     };
 
-    // Submit the review to the backend
+    // backend
     this.reviewService.addReview(this.campgroundId, reviewToSubmit).subscribe({
       next: (review) => {
         this.reviews.push(review);  
@@ -166,7 +164,7 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
 
   deleteReview(reviewId: number): void {
     const review = this.reviews.find(r => r.reviewId === reviewId);
-    console.log('Logged-in User ID:', this.currentUserId); // Debugging: log the current user ID
+    console.log('Logged-in User ID:', this.currentUserId); 
 
     if (review && Number(review.userId) !== Number(this.currentUserId)) {
       this.flashMessageService.showMessage('You can only delete your own reviews!', 5000);
@@ -218,7 +216,7 @@ export class CampgroundDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.map) {
-      this.map.remove();  // Clean up the map when the component is destroyed
+      this.map.remove();  
     }
   }
   

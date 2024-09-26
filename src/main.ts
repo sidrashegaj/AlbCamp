@@ -12,7 +12,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(withFetch(), withInterceptors([AuthInterceptor])),
-    AuthGuardService , // Make sure HttpClient is provided
+    AuthGuardService ,
     AuthService
   ]
 }).catch(err => console.error(err));

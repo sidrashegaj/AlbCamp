@@ -9,8 +9,8 @@
   text-align: center;
   border-radius: 10px;
   width: 60%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
-  font-size: 1.1rem; /* Slightly larger text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  font-size: 1.1rem; 
   margin-top: 15px;
   z-index: 1000; 
 }
@@ -20,9 +20,9 @@
   font-size: 0.9rem;
   padding: 8px 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .flash-message button:hover {
-  opacity: 0.9; /* Slight hover effect */
+  opacity: 0.9;
 }

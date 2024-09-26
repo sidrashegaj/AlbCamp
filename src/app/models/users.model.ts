@@ -12,6 +12,6 @@ export interface LoginComponent {
     username: string;
     email: string;
     password: string;
-    confirmPassword: string; // For confirming the password during registration
+    confirmPassword: string; 
   }
   

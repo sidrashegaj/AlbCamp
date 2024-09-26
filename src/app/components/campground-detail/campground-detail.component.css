@@ -1,30 +1,30 @@
 #campgroundCarousel {
-  max-width: 600px; /* Set a max width for the carousel */
-  margin: 0 auto; /* Center the carousel */
-  border-radius: 15px; /* Add rounded corners */
-  overflow: hidden; /* Hide any overflow from the images */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for visual appeal */
-  background-color: #b0d5d5; /* Background color for the carousel */
+  max-width: 600px; 
+  margin: 0 auto;
+  border-radius: 15px; 
+  overflow: hidden; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background-color: #b0d5d5; 
   margin-top: 20px;
 
 }
 
 .carousel-inner {
-  background-color: #b0d5d5; /* Adjust the background color */
+  background-color: #b0d5d5;
 }
 
 .carousel-item img {
   width: 100%;
   height: auto;
-  max-height: 400px; /* Ensure the height of images doesn’t exceed the container */
-  object-fit: cover; /* Fit the image to the container */
+  max-height: 400px; 
+  object-fit: cover; 
 }
 
 #campground-container {
   background-color: #b0d5d5;
-  border-radius: 15px; /* Optional: Add rounded corners */
-  padding: 15px; /* Add padding */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for container */
+  border-radius: 15px;
+  padding: 15px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 #map {
@@ -33,7 +33,7 @@
   height: 400px;
   margin: 20px auto;
   border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for map */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .review-section {
@@ -46,15 +46,15 @@
 
 .review-section h2 {
   color: #343a40;
-  font-size: 1.8rem; /* Increase font size for headers */
+  font-size: 1.8rem; 
 }
 
 .review-section textarea {
   width: 100%;
   border-radius: 5px;
   padding: 10px;
-  border: 1px solid #ced4da; /* Subtle border */
-  font-size: 1rem; /* Adjust text size */
+  border: 1px solid #ced4da; 
+  font-size: 1rem; 
 }
 
 .review-section button {
@@ -69,7 +69,7 @@
 }
 
 .review-section button:hover {
-  background-color: #218838; /* Darken on hover */
+  background-color: #218838; 
 }
 
 .card {
@@ -109,6 +109,7 @@ fieldset.starability-grow input[type="radio"]:hover ~ label {
   color: #f39c12;
 }
 
+
 /* Container styling for layout */
 .container {
   max-width: 1200px;
@@ -118,12 +119,12 @@ fieldset.starability-grow input[type="radio"]:hover ~ label {
 .row {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+  flex-wrap: wrap;
 }
 
 .col-6 {
-  flex: 0 0 48%; /* Two columns, each taking 48% of the width */
-  margin-bottom: 20px; /* Add spacing between columns */
+  flex: 0 0 48%; 
+  margin-bottom: 20px; 
 }
 
 .custom-flash-message {
@@ -146,7 +147,7 @@ fieldset.starability-grow input[type="radio"]:hover ~ label {
 .flash-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px; /* Adds space between the buttons */
+  gap: 15px; /* space between the buttons */
 }
 
 .flash-buttons button {
@@ -159,11 +160,11 @@ fieldset.starability-grow input[type="radio"]:hover ~ label {
 /* Adjustments for smaller screens */
 @media (max-width: 768px) {
   .col-6 {
-    flex: 0 0 100%; /* On smaller screens, make columns take full width */
+    flex: 0 0 100%; 
   }
 
   #map {
-    height: 300px; /* Adjust map height for smaller screens */
+    height: 300px; 
   }
 }
 

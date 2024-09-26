@@ -2,22 +2,18 @@
     <h1 class="text-center mb-4">Edit Campground</h1>
     <div class="col-md-6 offset-md-3">
 
-        <!-- Form for editing the campground -->
         <form (ngSubmit)="onSubmit()" novalidate>
             
-            <!-- Title Field -->
             <div class="mb-4">
                 <label class="form-label" for="title">Title</label>
                 <input [(ngModel)]="campground.title" name="title" class="form-control form-control-lg" type="text" id="title" required>
             </div>
 
-            <!-- Location Field -->
             <div class="mb-4">
                 <label class="form-label" for="location">Location</label>
                 <input [(ngModel)]="campground.location" name="location" class="form-control form-control-lg" type="text" id="location" required>
             </div>
 
-            <!-- Price Field -->
             <div class="mb-4">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
@@ -26,13 +22,11 @@
                 </div>
             </div>
 
-            <!-- Description Field -->
             <div class="mb-4">
                 <label class="form-label" for="description">Description</label>
                 <textarea [(ngModel)]="campground.description" name="description" class="form-control form-control-lg" id="description" rows="4" required></textarea>
             </div>
 
-            <!-- Image Upload Field -->
             <div class="mb-4">
                 <label class="form-label" for="image">Add More Images</label>
                 <div class="form-file custom-file">
@@ -42,7 +36,6 @@
                 </div>
             </div>
 
-            <!-- Existing Images with Delete Option -->
             <div class="mb-4">
                 <label class="form-label">Existing Images</label>
                 <div class="row">
@@ -58,13 +51,11 @@
                 </div>
             </div>
 
-            <!-- Submit Button -->
             <div class="mb-3 text-center">
                 <button class="btn btn-primary btn-lg" type="submit">Update Campground</button>
             </div>
         </form>
 
-        <!-- Back Button -->
         <div class="text-center mt-3">
             <a [routerLink]="['/campgrounds', campground.campgroundId]" class="btn btn-secondary">Back To Campground</a>
         </div>

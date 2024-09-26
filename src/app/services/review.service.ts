@@ -7,7 +7,7 @@ import { Review } from '../models/review.model';
   providedIn: 'root',
 })
 export class ReviewService {
-  private apiUrl = 'https://localhost:7136/api/reviews';  // Replace with your actual API URL
+  private apiUrl = 'https://localhost:7136/api/reviews';  
 
   constructor(private http: HttpClient) {}
 

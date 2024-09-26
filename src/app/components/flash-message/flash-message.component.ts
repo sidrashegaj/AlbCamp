@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-flash-message',
   standalone: true,
-  imports: [CommonModule],  // Ensure CommonModule is imported for template directives like *ngIf
+  imports: [CommonModule], 
   templateUrl: './flash-message.component.html',
   styleUrls: ['./flash-message.component.css'],
 })
@@ -21,6 +21,6 @@ export class FlashMessageComponent {
     });
   }
   onLoginClick(): void {
-    this.router.navigate(['/login']);  // Navigate to the login page
+    this.router.navigate(['/login']); 
   }
 }

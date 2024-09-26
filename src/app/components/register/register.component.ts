@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
+import { FormsModule } from '@angular/forms'; //  for ngModel
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessageService } from '../../services/flash-message.service';
@@ -22,7 +22,7 @@ export class RegisterComponent {
     this.authService.register(this.username, this.email, this.password).subscribe({
       next: (user) => {
         this.flashMessageService.showMessage('Welcome :)', 5000);
-        this.router.navigate(['/campgrounds']);  // Redirect to campgrounds
+        this.router.navigate(['/campgrounds']);  
 
       },
       error: (err) => {

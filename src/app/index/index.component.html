@@ -1,26 +1,47 @@
 <div class="hero-section d-flex w-100 h-100 p-3 mx-auto flex-column justify-content-center align-items-center">
+  <main class="px-3 text-center">
+    <h1 class="display-1 mb-4">Welcome to AlbCamp</h1>
+    <p class="lead text-light mb-5">
+      Discover beautiful campgrounds across Albania! <br>
+      Whether you are looking for a place to relax, adventure, or escape, we've got you covered!
+    </p>
+    <form (ngSubmit)="onSearch()">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        name="search"
+        placeholder="Search Campgrounds..."
+        class="form-control mb-3"
+        required
+      />
+      <button type="submit" class="btn btn-lg btn-custom-primary text-light px-4 py-2">Search</button>
+    </form>
+
+    <!-- when none found -->
+    <div *ngIf="noResultsFound" class="text-danger mt-3">
+      <p>No campgrounds found.</p>
     
-  
-    <!-- Main Hero Section -->
-    <main class="px-3 text-center">
-      <h1 class="display-1 mb-4">Welcome to AlbCamp</h1>
-      <p class="lead text-light mb-5">
-        Discover beautiful campgrounds across Albania! 
-        <br>
-        Whether you are looking for a place to relax, adventure, or escape, we've got you covered!
-      </p>
-  
-<!-- Update your HTML -->
-<button class="btn btn-lg btn-custom-primary text-light px-4 py-2" (click)="onSearch()">
-  Explore Campgrounds
-</button>
+    </div>
 
+    <div *ngIf="campgrounds && campgrounds.length > 0" class="container mt-5">
+      <h2 class="text-dark">Search Results</h2>
+      <div class="row">
+        <div *ngFor="let campground of campgrounds" class="col-md-4 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ campground.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ campground.location }}</h6>
+              <p class="card-text">{{ campground.description }}</p>
+              <p><strong>Price:</strong> ${{ campground.price }}</p>
+              <a (click)="navigateToCampgrounds(campground.campgroundId)" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-
-  
-      
-    </main>
-  
-  
-  </div>
-  
+    <div class="text-center mt-5">
+      <button (click)="navigateToAllCampgrounds()" class="btn btn-lg btn-all-campgrounds">View All Campgrounds</button>
+    </div>
+  </main>
+</div>

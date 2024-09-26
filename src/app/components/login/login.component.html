@@ -7,10 +7,8 @@
         <div class="card-body">
           <h5 class="card-title text-center">Login</h5>
           
-          <!-- Temporarily removed the form to disable the login logic -->
            <form (ngSubmit)="onSubmit()">  
 
-            <!-- Username Input -->
             <div class="mb-3">
               <label class="form-label" for="username">Username</label>
               <input class="form-control" type="text" id="username" name="username" [(ngModel)]="username" required autofocus #usernameInput="ngModel">
@@ -22,7 +20,6 @@
               </div>
             </div>
 
-            <!-- Password Input -->
             <div class="mb-3">
               <label class="form-label" for="password">Password</label>
               <input class="form-control" type="password" id="password" name="password" [(ngModel)]="password" required #passwordInput="ngModel">
@@ -34,12 +31,9 @@
               </div>
             </div>
 
-            <!-- Submit Button -->
-            <!-- Temporarily disabled the button since it depends on the form submission -->
              <button class="btn btn-success btn-block" type="submit" >Login</button> 
             </form> 
             <p *ngIf="error" style="color:red">{{ error }}</p>
-           <!-- [disabled]="loginForm.invalid" </form>  -->
         </div>
       </div>
     </div>

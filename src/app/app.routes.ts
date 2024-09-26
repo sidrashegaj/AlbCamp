@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'campgrounds', component: CampgroundListComponent },
-  { path: 'campgrounds/new', component: AddCampgroundComponent,canActivate: [AuthGuardService]}, //, canActivate: [AuthGuard]
+  { path: 'campgrounds/new', component: AddCampgroundComponent,canActivate: [AuthGuardService]}, 
   { path: 'campgrounds/:id', component: CampgroundDetailComponent },
   { path: 'campgrounds/:id/edit', component: EditCampgroundComponent },
   { path: '**', redirectTo: '/campgrounds' },
