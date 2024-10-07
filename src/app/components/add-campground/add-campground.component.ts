@@ -25,7 +25,7 @@ export class AddCampgroundComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private flashMessageService: FlashMessageService,
-    @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID to detect the platform
+    @Inject(PLATFORM_ID) private platformId: Object 
   ) {
     this.campgroundForm = this.fb.group({
       title: ['', Validators.required],

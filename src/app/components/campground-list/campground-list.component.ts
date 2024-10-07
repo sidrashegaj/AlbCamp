@@ -55,7 +55,7 @@ export class CampgroundListComponent implements OnInit {
     }
   }
 
-  // Initialize Mapbox map
+  // map
   initializeMap(): void {
     if (isPlatformBrowser(this.platformId)) {
       mapboxgl.default.accessToken = environment.mapbox.accessToken;
